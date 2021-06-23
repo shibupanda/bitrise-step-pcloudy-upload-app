@@ -7,5 +7,6 @@ authToken=$(echo "$authentication_response" | jq -r .result.token)
 echo $BITRISE_APK_PATH
 echo $upload_path
 upload_response="$(curl -X POST -F "file=@$upload_path" -F "source_type=raw" -F "token=$authToken" -F "filter=all" https://$PCLOUDY_CLOUDURL/api/upload_file)" 
-file_name=$(echo "$upload_response" | jq -r .result.file | envman add --key PCLOUDY_APP_NAME)
+file_name=$(echo "$upload_response" | jq -r .result.file)
+echo $file_name | envman add --key PCLOUDY_APP_NAME
 echo $PCLOUDY_APP_NAME
